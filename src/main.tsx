@@ -9,6 +9,7 @@ import {
   Github,
   Globe2,
   Headphones,
+  Mail,
   Moon,
   PanelsTopLeft,
   Smartphone,
@@ -20,34 +21,40 @@ import "./styles.css";
 const projects = [
   {
     title: "Mocktest",
-    subtitle: "Latihan JFT mockup dan drill kisi-kisi",
+    subtitle: "Structured practice platform for test preparation",
     description:
-      "Aplikasi latihan tes Jepang dengan alur mockup, audio, navigasi per bagian, riwayat sesi, statistik skor, donasi, dan area admin.",
-    image: "/assets/mocktest-preview.svg",
-    fallback: "JFT mockup practice",
+      "A test practice app with mock flows, audio, section-based navigation, session history, score statistics, donations, and an admin area.",
+    image: {
+      light: "/assets/mocktest-live-light.png",
+      dark: "/assets/mocktest-live-dark.png"
+    },
+    fallback: "Mocktest practice",
     liveUrl: "https://mocktest.xnv.biz.id",
     repoUrl: "https://github.com/arjawa123/mocktests",
     stack: ["Next.js", "React", "TypeScript", "Supabase", "Recharts"],
     highlights: [
-      "Mode JFT Mockup dan Kisi-kisi",
+      "Mock test and drill modes",
       "Audio-based practice flow",
-      "Riwayat, chart, dan progress tracking"
+      "History, charts, and progress tracking"
     ],
     icon: Headphones
   },
   {
     title: "Japanese Vocab",
-    subtitle: "PWA vocabulary practice untuk learner Indonesia",
+    subtitle: "Vocabulary practice PWA with progress tracking",
     description:
-      "Tool latihan kosakata Jepang dengan deck JLPT, SRS mistakes pool, target harian, streak, TTS, offline/PWA, dan cloud sync via Supabase.",
-    image: "/assets/japanese-vocab-preview.svg",
-    fallback: "JLPT vocab trainer",
+      "A vocabulary practice tool with structured decks, an SRS mistakes pool, daily goals, streaks, TTS, offline/PWA support, and Supabase cloud sync.",
+    image: {
+      light: "/assets/vocab-live-light.png",
+      dark: "/assets/vocab-live-dark.png"
+    },
+    fallback: "Vocabulary trainer",
     liveUrl: "https://vocab.xnv.biz.id",
     repoUrl: "https://github.com/arjawa123/japanese-vocab-app",
     stack: ["Vite", "React", "TypeScript", "PWA", "Express"],
     highlights: [
-      "JLPT N5-N1 dan common vocab",
-      "SRS untuk kata yang salah",
+      "JLPT N5-N1 and common vocabulary",
+      "SRS for missed words",
       "Dark mode, TTS, offline support"
     ],
     icon: Brain
@@ -55,12 +62,12 @@ const projects = [
 ];
 
 const capabilities = [
-  { label: "React", detail: "UI aplikasi interaktif", icon: PanelsTopLeft },
-  { label: "TypeScript", detail: "State dan data flow terjaga", icon: CheckCircle2 },
-  { label: "Next.js + Vite", detail: "Pilih tool sesuai kebutuhan produk", icon: Zap },
-  { label: "Supabase", detail: "Auth, database, dan cloud sync", icon: Globe2 },
-  { label: "PWA", detail: "Installable dan nyaman di mobile", icon: Smartphone },
-  { label: "UI Systems", detail: "Token, dark mode, dan komponen konsisten", icon: BookOpenCheck }
+  { label: "React", detail: "Interactive, stateful application UIs", icon: PanelsTopLeft },
+  { label: "TypeScript", detail: "Typed state, data models, and flows", icon: CheckCircle2 },
+  { label: "Next.js + Vite", detail: "Framework choices matched to product needs", icon: Zap },
+  { label: "Supabase", detail: "Auth, database, and cloud sync", icon: Globe2 },
+  { label: "PWA", detail: "Installable experiences built for mobile use", icon: Smartphone },
+  { label: "UI Systems", detail: "Tokens, dark mode, and consistent components", icon: BookOpenCheck }
 ];
 
 function ThemeToggle() {
@@ -72,19 +79,38 @@ function ThemeToggle() {
   };
 
   return (
-    <button className="icon-button theme-button" type="button" onClick={toggleTheme} aria-label="Ganti tema">
+    <button className="icon-button theme-button" type="button" onClick={toggleTheme} aria-label="Toggle theme">
       <Sun className="sun-icon" size={18} />
       <Moon className="moon-icon" size={18} />
     </button>
   );
 }
 
-function ProjectImage({ src, alt, fallback }: { src: string; alt: string; fallback: string }) {
+function ProjectImage({
+  src,
+  alt,
+  fallback
+}: {
+  src: { light: string; dark: string };
+  alt: string;
+  fallback: string;
+}) {
   return (
     <div className="project-media">
       <img
-        src={src}
+        className="project-image project-image-light"
+        src={src.light}
         alt={alt}
+        loading="lazy"
+        onError={(event) => {
+          event.currentTarget.style.display = "none";
+        }}
+      />
+      <img
+        className="project-image project-image-dark"
+        src={src.dark}
+        alt=""
+        aria-hidden="true"
         loading="lazy"
         onError={(event) => {
           event.currentTarget.style.display = "none";
@@ -107,13 +133,13 @@ function App() {
             <span className="brand-mark">br</span>
             <span>
               <strong>briexenv</strong>
-              <small>alias rjw</small>
+              <small>rjw</small>
             </span>
           </a>
-          <nav className="topbar-nav" aria-label="Navigasi utama">
-            <a href="#projects">Project</a>
+          <nav className="topbar-nav" aria-label="Main navigation">
+            <a href="#projects">Projects</a>
             <a href="#stack">Stack</a>
-            <a href="#contact">Kontak</a>
+            <a href="#contact">Contact</a>
           </nav>
           <div className="topbar-actions">
             <a className="icon-button" href="https://github.com/arjawa123" target="_blank" rel="noreferrer" aria-label="GitHub arjawa123">
@@ -127,17 +153,17 @@ function App() {
       <main id="top">
         <section className="hero-section">
           <div className="hero-copy">
-            <p className="eyebrow">Portfolio project-based</p>
-            <h1>Focused learning tools, built by briexenv alias rjw.</h1>
+            <p className="eyebrow">Web app portfolio</p>
+            <h1>Focused digital products for real workflows.</h1>
             <p className="hero-lede">
-              Showcase dua produk belajar bahasa Jepang yang sudah siap dicoba:
-              mocktest JFT dengan alur latihan terstruktur dan vocabulary trainer
-              PWA untuk learner Indonesia.
+              A showcase of projects built as usable products: practice
+              platforms, productivity tools, and web apps with clear flows,
+              real data, and intentional user experiences.
             </p>
             <div className="hero-actions">
               <a className="button primary" href="#projects">
                 <ArrowDown size={17} />
-                Lihat Project
+                View Projects
               </a>
               <a className="button secondary" href="https://github.com/arjawa123" target="_blank" rel="noreferrer">
                 <Github size={17} />
@@ -152,7 +178,7 @@ function App() {
             </div>
             <div className="panel-row">
               <span>Domain</span>
-              <strong>Japanese learning</strong>
+              <strong>Web apps</strong>
             </div>
             <div className="mini-grid">
               <div>
@@ -170,10 +196,10 @@ function App() {
         <section className="section" id="projects">
           <div className="section-heading">
             <p className="eyebrow">Showcase</p>
-            <h2>Project yang siap dipakai</h2>
+            <h2>Live, usable projects</h2>
             <p>
-              Keduanya dibuat sebagai aplikasi praktis, bukan sekadar demo UI:
-              ada latihan, data, progress, dan deployment publik.
+              Each project is built as a practical application, not just a UI
+              demo: clear user flows, data, progress, and public deployment.
             </p>
           </div>
           <div className="project-grid">
@@ -226,7 +252,7 @@ function App() {
         <section className="section stack-section" id="stack">
           <div className="section-heading">
             <p className="eyebrow">Stack</p>
-            <h2>Kemampuan yang terlihat dari project</h2>
+            <h2>Core toolkit</h2>
           </div>
           <div className="capability-grid">
             {capabilities.map((item) => {
@@ -246,13 +272,19 @@ function App() {
       <footer className="footer" id="contact">
         <div>
           <strong>briexenv / rjw</strong>
-          <p>Building focused tools for language learning and practice workflows.</p>
+          <p>Building focused tools for learning, productivity, and practical web workflows.</p>
         </div>
-        <a className="button secondary" href="https://github.com/arjawa123" target="_blank" rel="noreferrer">
-          <Github size={16} />
-          github.com/arjawa123
-          <ArrowUpRight size={15} />
-        </a>
+        <div className="footer-actions">
+          <a className="button secondary" href="mailto:briexenv@gmail.com">
+            <Mail size={16} />
+            briexenv@gmail.com
+          </a>
+          <a className="button secondary" href="https://github.com/arjawa123" target="_blank" rel="noreferrer">
+            <Github size={16} />
+            github.com/arjawa123
+            <ArrowUpRight size={15} />
+          </a>
+        </div>
       </footer>
     </div>
   );
