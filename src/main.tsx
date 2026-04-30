@@ -29,7 +29,7 @@ const projects = [
       dark: "/assets/mocktest-live-dark.png"
     },
     fallback: "Mocktest practice",
-    liveUrl: "https://mocktest.xnv.biz.id",
+    liveUrl: "https://mocktest.xnv.my.id",
     repoUrl: "https://github.com/arjawa123/mocktests",
     stack: ["Next.js", "React", "TypeScript", "Supabase", "Recharts"],
     highlights: [
@@ -49,7 +49,7 @@ const projects = [
       dark: "/assets/vocab-live-dark.png"
     },
     fallback: "Vocabulary trainer",
-    liveUrl: "https://vocab.xnv.biz.id",
+    liveUrl: "https://vocab.xnv.my.id",
     repoUrl: "https://github.com/arjawa123/japanese-vocab-app",
     stack: ["Vite", "React", "TypeScript", "PWA", "Express"],
     highlights: [
